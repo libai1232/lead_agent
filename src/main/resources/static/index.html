@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Agent 聊天 Demo</title>
+    <!-- 页面样式保持独立，便于在不修改后端代码的情况下调整。 -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app-shell">
+    <section class="chat-panel">
+        <h1>Lead Agent 聊天 Demo</h1>
+        <p class="description">输入客户标识和消息，模拟一次客户对话。</p>
+
+        <form id="chat-form">
+        <label for="customer-id">Customer ID</label>
+        <input
+                id="customer-id"
+                name="customerId"
+                type="text"
+                value="customer-1"
+                autocomplete="off"
+                required
+        >
+
+        <!-- aria-live 让新增的聊天内容也能被辅助技术感知。 -->
+        <section id="chat-history" class="chat-history" aria-live="polite" aria-label="聊天记录">
+            <p class="empty-tip">聊天记录会显示在这里。</p>
+        </section>
+
+        <label for="message">客户消息</label>
+        <div class="message-row">
+            <input
+                    id="message"
+                    name="message"
+                    type="text"
+                    placeholder="请输入消息"
+                    autocomplete="off"
+                    required
+            >
+            <button id="send-button" type="submit">发送</button>
+        </div>
+        </form>
+    </section>
+
+    <!-- 初筛资料与人工摘要位于对话框外，只读取后端结果，不参与 Agent 决策。 -->
+    <aside class="lead-panel" aria-label="客户初筛信息">
+        <h2>客户初筛信息</h2>
+        <dl class="lead-fields">
+            <div><dt>感兴趣产品</dt><dd id="lead-product">未确认</dd></div>
+            <div><dt>客户需求</dt><dd id="lead-need">未确认</dd></div>
+            <div><dt>预算</dt><dd id="lead-budget">未确认</dd></div>
+            <div><dt>采购时间</dt><dd id="lead-timeline">未确认</dd></div>
+            <div><dt>决策角色</dt><dd id="lead-role">未确认</dd></div>
+            <div><dt>联系偏好</dt><dd id="lead-contact">未确认</dd></div>
+        </dl>
+
+        <section id="handoff-section" class="handoff-section" hidden>
+            <h2>人工交接摘要</h2>
+            <p id="handoff-summary"></p>
+        </section>
+    </aside>
+</main>
+
+<!-- JavaScript 只处理页面交互和 HTTP 调用，不包含 Agent 业务规则。 -->
+<script src="./app.js"></script>
+</body>
+</html>

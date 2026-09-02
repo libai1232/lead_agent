@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: lead-agent
+  ai:
+    openai:
+      # 所有凭证和中转站参数都从环境变量读取，禁止在配置文件中写入真实 Key。
+      api-key: ${OPENAI_API_KEY}
+      # 默认连接 MicuAPI；可通过 OPENAI_BASE_URL 切换其他兼容端点。
+      base-url: ${OPENAI_BASE_URL:https://www.micuapi.ai/v1}
+      custom-headers:
+        # MicuAPI 外接场景要求 Codex 风格 User-Agent，可由环境变量覆盖。
+        User-Agent: ${OPENAI_USER_AGENT:codex_cli_rs/0.77.0 (Windows 10.0.26100; x86_64) WindowsTerminal}
+      chat:
+        # 默认使用中转站推荐模型，可由 OPENAI_MODEL 覆盖。
+        model: ${OPENAI_MODEL:gpt-5.6-sol}
